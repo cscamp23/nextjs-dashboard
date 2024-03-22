@@ -1,19 +1,31 @@
-import { sql } from "@vercel/postgres";
+import CardWrapper from '../ui/dashboard/cards';
+import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
+import { lusitana } from '@/app/ui/fonts';
+import { fetchLatestInvoices } from '../lib/data'; 
+import { Suspense } from 'react'
+import { RevenueChartSkeleton, LatestInvoicesSkeleton, CardSkeleton } from '../ui/skeletons';
 
-export default async function Cart({
-  params
-} : {
-  params: { user: string }
-}): Promise<JSX.Element> {
-  const { rows } = await sql`SELECT * from CARTS where user_id=${params.user}`;
-
+export default async function Page() {
   return (
-    <div>
-      {rows.map((row) => (
-        <div key={row.id}>
-          {row.id} - {row.quantity}
-        </div>
-      ))}
-    </div>
+    <main>
+      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Dashboard
+      </h1>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <Suspense fallback={<CardSkeleton />}>
+        <CardWrapper />
+      </Suspense>
+      </div>
+      
+      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+        <Suspense fallback={<RevenueChartSkeleton />}>
+          <RevenueChart />
+        </Suspense>
+        <Suspense fallback={<LatestInvoicesSkeleton/ >}>
+          <LatestInvoices />
+        </Suspense>
+      </div>
+    </main>
   );
 }
