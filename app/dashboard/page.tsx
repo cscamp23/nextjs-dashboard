@@ -5,6 +5,11 @@ import { lusitana } from '@/app/ui/fonts';
 import { fetchLatestInvoices } from '../lib/data'; 
 import { Suspense } from 'react'
 import { RevenueChartSkeleton, LatestInvoicesSkeleton, CardSkeleton } from '../ui/skeletons';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Invoices | Acme Dashboard',
+};
 
 export default async function Page() {
   return (
