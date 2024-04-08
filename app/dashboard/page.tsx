@@ -8,7 +8,7 @@ import { RevenueChartSkeleton, LatestInvoicesSkeleton, CardSkeleton } from '../u
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Invoices | Acme Dashboard',
+  title: 'Invoices | mydashboard Dashboard',
 };
 
 export default async function Page() {
